@@ -1,54 +1,36 @@
 package by.drivescape.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
 public class Person {
 
-    private Long id;
-
-    @NotEmpty(message = "First name should be not empty")
-    @Size(max = 150, message = "First name should be not max 150 character")
+    private Long personId;
     private String firstName;
-
-    @NotEmpty(message = "Last name should be not empty")
-    @Size(max = 150, message = "Last name should be not max 150 character")
     private String lastName;
-
-    @NotEmpty(message = "Password should be not empty")
-    @Size(min = 8, message = "Password should be min 8 character")
     private String password;
-
-    @NotEmpty(message = "Email should be not empty")
-    @Email(message = "Email should be valid")
     private String email;
-
-    private String image = String.valueOf("");
+    private String image;
 
     // determines if the driver is working
-    private boolean isActiveDriver = false;
+    private boolean isActiveDriver;
 
-    private boolean isDefaultUser = true;
-    private boolean isDriver = false;
-    private boolean isModerator = false;
+    private boolean isDefaultUser;
+    private boolean isDriver;
+    private boolean isModerator;
 
-    public Person(Long id, String firstName,
-                  String lastName, String password,
-                  String email, String image) {
-        this.id = id;
+    public Person() {}
+
+    public Person(String firstName, String lastName, String password, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPersonId() {
+        return personId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public String getFirstName() {
@@ -91,35 +73,51 @@ public class Person {
         this.image = image;
     }
 
-    public boolean isActiveDriver() {
+    public boolean getIsActiveDriver() {
         return isActiveDriver;
     }
 
-    public void setActiveDriver(boolean active) {
-        isActiveDriver = active;
+    public void setIsActiveDriver(boolean isActiveDriver) {
+        this.isActiveDriver = isActiveDriver;
     }
 
-    public boolean isDriver() {
-        return isDriver;
-    }
-
-    public void setDriver(boolean driver) {
-        isDriver = driver;
-    }
-
-    public boolean isModerator() {
-        return isModerator;
-    }
-
-    public void setModerator(boolean moderator) {
-        isModerator = moderator;
-    }
-
-    public boolean isDefaultUser() {
+    public boolean getIsDefaultUser() {
         return isDefaultUser;
     }
 
-    public void setDefaultUser(boolean defaultUser) {
-        isDefaultUser = defaultUser;
+    public void setIsDefaultUser(boolean IsDefaultUser) {
+        this.isDefaultUser = IsDefaultUser;
+    }
+
+    public boolean getIsDriver() {
+        return isDriver;
+    }
+
+    public void setIsDriver(boolean isDriver) {
+        this.isDriver = isDriver;
+    }
+
+    public boolean getIsModerator() {
+        return isModerator;
+    }
+
+    public void setIsModerator(boolean isModerator) {
+        this.isModerator = isModerator;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + personId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", image='" + image + '\'' +
+                ", isActiveDriver=" + isActiveDriver +
+                ", isDefaultUser=" + isDefaultUser +
+                ", isDriver=" + isDriver +
+                ", isModerator=" + isModerator +
+                '}';
     }
 }
