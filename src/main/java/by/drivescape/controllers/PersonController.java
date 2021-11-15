@@ -1,11 +1,12 @@
 package by.drivescape.controllers;
 
+import by.drivescape.jsonview.MessageExceptionJsonView;
 import by.drivescape.models.Person;
 import by.drivescape.services.MinLengthException;
 import by.drivescape.services.PersonService;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -42,7 +43,9 @@ public class PersonController {
     }
 
     @ExceptionHandler({SQLException.class, MinLengthException.class})
-    public ResponseEntity<String> endpointException(Exception e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    @JsonView(MessageExceptionJsonView.MessageException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public MessageExceptionJsonView endpointException(Exception e) {
+        return new MessageExceptionJsonView(e.getMessage());
     }
 }
