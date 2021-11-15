@@ -1,6 +1,6 @@
 package by.drivescape.services;
 
-import by.drivescape.dao.PersonDAO;
+import by.drivescape.dao.PersonDao;
 import by.drivescape.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +11,13 @@ import java.util.List;
 @Service
 public class PersonService {
 
-    private final PersonDAO personDAO;
+    private final PersonDao personDao;
     private final HashingService hashingService;
 
     @Autowired
-    public PersonService(PersonDAO personDAO, HashingService hashingService) {
+    public PersonService(PersonDao personDao, HashingService hashingService) {
         System.out.println(PersonService.class);
-        this.personDAO = personDAO;
+        this.personDao = personDao;
         this.hashingService = hashingService;
     }
 
@@ -27,14 +27,14 @@ public class PersonService {
             throw new MinLengthException("Length password should be min 8 character");
         }
         person.setPassword(hashingService.getHashString(password));
-        personDAO.create(person);
+        personDao.create(person);
     }
 
     public Person getByIdPerson(Long id) throws SQLException {
-        return personDAO.getById(id);
+        return personDao.getById(id);
     }
 
     public List<Person> getAllPerson() {
-        return personDAO.getAll();
+        return personDao.getAll();
     }
 }
