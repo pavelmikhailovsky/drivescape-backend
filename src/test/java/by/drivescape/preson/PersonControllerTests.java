@@ -1,36 +1,31 @@
 package by.drivescape.preson;
 
-import by.drivescape.configs.AppConfig;
+import by.drivescape.TestAppConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.client.MockMvcWebTestClient;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
-@SpringJUnitWebConfig(AppConfig.class)
+@SpringJUnitWebConfig(TestAppConfig.class)
 public class PersonControllerTests {
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    private WebTestClient webTestClient;
+    private MockMvc mockMvc;
 
     @BeforeEach
-    public void setUp() throws Exception {
-        webTestClient = MockMvcWebTestClient.bindToApplicationContext(webApplicationContext).build();
+    public void setUp(WebApplicationContext wac) {
+        this.mockMvc = webAppContextSetup(wac).build();
     }
 
     @Test
     public void test() throws Exception {
-        webTestClient = WebTestClient.bindToServer().baseUrl("http://localhost:8080/api/v1").build();
-        webTestClient.get().uri("/person")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON);
+        MvcResult mvcResult = mockMvc.perform(get("/person")).andExpect(status().isOk()).andReturn();
+        var response = mvcResult.getResponse();
+        System.out.println(response.getContentAsString());
     }
 
 }

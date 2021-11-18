@@ -16,7 +16,6 @@ public class PersonService {
 
     @Autowired
     public PersonService(PersonDao personDao, HashingService hashingService) {
-        System.out.println(PersonService.class);
         this.personDao = personDao;
         this.hashingService = hashingService;
     }

@@ -21,7 +21,6 @@ public class PersonController {
     @Autowired
     public PersonController(PersonService personService) {
         this.personService = personService;
-        System.out.println(PersonController.class);
     }
 
     @GetMapping("/{id}")
