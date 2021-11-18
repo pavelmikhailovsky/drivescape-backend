@@ -10,14 +10,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class PersonDAO implements DataAccessObject<Person> {
+public class PersonDao implements DataAccessObject<Person> {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public PersonDAO(JdbcTemplate jdbcTemplate) {
+    public PersonDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
-        System.out.println(PersonDAO.class);
     }
 
     public List<Person> getAll() {
